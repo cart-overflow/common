@@ -41,9 +41,9 @@ func FromRpcCtx(ctx context.Context) Metadata {
 	}
 
 	regTimestamp := ctxMd.Get("register-date")
-	if len(name) > 0 {
+	if len(regTimestamp) > 0 {
 		i, err := strconv.ParseInt(regTimestamp[0], 10, 64)
-		if err != nil {
+		if err == nil {
 			md.RegisterTimestamp = i
 		}
 	}
