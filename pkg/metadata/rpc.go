@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-func RpcCtxWithMetadata(ctx context.Context, md Metadata) context.Context {
+func RpcCtxWithMetadata(ctx context.Context, md *Metadata) context.Context {
 	mdmap := map[string]string{}
 	mdmap["user-id"] = md.UserId
 	mdmap["email"] = md.Email
@@ -17,12 +17,12 @@ func RpcCtxWithMetadata(ctx context.Context, md Metadata) context.Context {
 	return metadata.NewOutgoingContext(ctx, metadata.New(mdmap))
 }
 
-func FromRpcCtx(ctx context.Context) Metadata {
+func FromRpcCtx(ctx context.Context) *Metadata {
 	md := Metadata{}
 
 	ctxMd, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
-		return md
+		return &md
 	}
 
 	userId := ctxMd.Get("user-id")
@@ -48,5 +48,5 @@ func FromRpcCtx(ctx context.Context) Metadata {
 		}
 	}
 
-	return md
+	return &md
 }
