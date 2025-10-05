@@ -7,6 +7,10 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
+func (b *Builder) RpcCtx(ctx context.Context) context.Context {
+	return RpcCtxWithMetadata(ctx, b.md)
+}
+
 func RpcCtxWithMetadata(ctx context.Context, md *Metadata) context.Context {
 	mdmap := map[string]string{}
 	mdmap["user-id"] = md.UserId
