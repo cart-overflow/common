@@ -10,6 +10,7 @@ import (
 func RpcCtxWithMetadata(ctx context.Context, md *Metadata) context.Context {
 	mdmap := map[string]string{}
 	mdmap["user-id"] = md.UserId
+	mdmap["role"] = md.Role
 	mdmap["email"] = md.Email
 	mdmap["name-bin"] = md.Name
 	mdmap["register-date"] = strconv.FormatInt(md.RegisterTimestamp, 10)
@@ -28,6 +29,11 @@ func FromRpcCtx(ctx context.Context) *Metadata {
 	userId := ctxMd.Get("user-id")
 	if len(userId) > 0 {
 		md.UserId = userId[0]
+	}
+
+	role := ctxMd.Get("role")
+	if len(userId) > 0 {
+		md.Role = role[0]
 	}
 
 	email := ctxMd.Get("email")
