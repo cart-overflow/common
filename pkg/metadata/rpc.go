@@ -36,7 +36,7 @@ func FromRpcCtx(ctx context.Context) *Metadata {
 	}
 
 	role := ctxMd.Get("role")
-	if len(userId) > 0 {
+	if len(role) > 0 {
 		md.Role = role[0]
 	}
 
